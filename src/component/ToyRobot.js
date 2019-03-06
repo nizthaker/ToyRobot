@@ -130,16 +130,15 @@ export default class ToyRobot extends Component{
 
         return(
             <div>
-                <p> {displayText}</p>
-
+                <p className="displayText">{displayText}</p>
                     <table>
                         <tbody>
                         <tr>
                             <td>
-                                <button onClick={this.place}>Place</button>
-                                <input type="number"  name="inputX" placeholder="X" value={inputX} onChange={this.changeHandler} />
-                                <input type="number" name="inputY" placeholder="Y" value={inputY} onChange={this.changeHandler}/>
-                                <select name="inputFacing"  onChange={this.changeHandler} value={inputFacing}>
+                                <button className="placeButton" onClick={this.place}>Place</button>
+                                <input className="inputX" type="number"  name="inputX" placeholder="X" value={inputX} onChange={this.changeHandler} />
+                                <input className="inputY" type="number" name="inputY" placeholder="Y" value={inputY} onChange={this.changeHandler}/>
+                                <select className="inputFacing" name="inputFacing"  onChange={this.changeHandler} value={inputFacing}>
                                     {DIRECTIONS.map((d, i) => {
                                         return <option key={i} value={i}>{d}</option>
                                     })}
@@ -148,22 +147,22 @@ export default class ToyRobot extends Component{
                         </tr>
                         <tr>
                             <td>
-                                <button onClick={this.move}>Move</button>
+                                <button className="moveButton" onClick={this.move}>Move</button>
                             </td>
                         </tr>
                         <tr>
                             <td>
-                                <button onClick={this.left}>Left</button>
+                                <button className="leftButton" onClick={this.left}>Left</button>
                             </td>
                         </tr>
                         <tr>
                             <td>
-                                <button onClick={this.right}>Right</button>
+                                <button className="rightButton" onClick={this.right}>Right</button>
                             </td>
                         </tr>
                         <tr>
                             <td>
-                                <button onClick={this.report}>Report</button>
+                                <button className="reportButton" onClick={this.report}>Report</button>
                             </td>
                         </tr>
                         </tbody>
