@@ -9,11 +9,13 @@ export default class ToyRobot extends Component{
        facing: null,
        inputX: 0,
        inputY: 0,
-       inputFacing: 0,
+       inputFacing: 0,//facing NORTH by default
    };
 
+   //checks if robot has placed on the table or not
+   //displays alert msg if robot hasn't been placed.
    isPlaced = () => {
-       const {x } = this.state;
+       const { x } = this.state;
        if(x === null ){
            alert("Please place the robot on the table.");
            return false;
@@ -21,21 +23,30 @@ export default class ToyRobot extends Component{
        return true;
    }
 
+   //rotates the robot in right
    right = () => {
-        const {facing } = this.state;
+        const { facing } = this.state;
+        //checks if robot has been placed or not
         if(!this.isPlaced() ){
             return false;
         }
+        //sets the new value to facing state
         this.setState({
             facing: (facing + 1) % 4,
         });
+
     };
 
+   //rotates the robot in left
     left = () => {
         const { facing } = this.state;
+        //checks if robot has been placed or not
         if(!this.isPlaced() ){
             return false;
         }
+        //if facing is 0(NORTH) then set facing state value to 3(WEST)
+        //else it decreases facing value by 1
+        // Position of directions ['NORTH', 'EAST', 'SOUTH', 'WEST']
         if(facing === 0) {
             this.setState({
                 facing: 3,
@@ -48,6 +59,9 @@ export default class ToyRobot extends Component{
 
     };
 
+    // Check if the supplied position is valid or not
+    // x,y are coordinates to check
+    // returns boolean
     validPosition = (x, y) => {
         const pattern = new RegExp("^[0-4]$");
         if(!pattern.test(x) || !pattern.test(y))
@@ -56,7 +70,7 @@ export default class ToyRobot extends Component{
         }
             return true;
     }
-
+    //alerts the current robot information
     report = () => {
         const { x, y, facing } = this.state;
         if(!this.isPlaced() ){
@@ -65,7 +79,7 @@ export default class ToyRobot extends Component{
         alert(x + "," + y + "," + DIRECTIONS[facing])
     }
 
-
+    // Move the robot in the direction it's facing
     move = () => {
        const { x, y, facing } = this.state;
         if(!this.isPlaced() ){
@@ -74,28 +88,29 @@ export default class ToyRobot extends Component{
        let newY = y;
        let newX = x;
        switch(facing) {
-           case 0:
+           case 0: // facing North
            {
                newY = y+1;
                break;
            }
-           case 1:
+           case 1: // facing East
            {
                newX = x + 1;
                break;
            }
-           case 2:
+           case 2: // facing South
            {
                newY = y - 1;
                break;
            }
-           case 3:
+           case 3: // facing West
            {
                newX = x - 1;
                break;
            }
 
        }
+       // checks if position of newX, newY are valid or not and then sets the new value for x, y in states
        if(this.validPosition(newX,newY)) {
            this.setState({
                x: newX,
@@ -103,7 +118,7 @@ export default class ToyRobot extends Component{
            })
        }
     }
-
+    // Place the robot at specified location and coordinates
     place = () => {
         const { inputX, inputY, inputFacing } = this.state;
             if(this.validPosition(inputX, inputY)) {
@@ -117,6 +132,7 @@ export default class ToyRobot extends Component{
             }
     }
 
+    // gets the value from user inputs and set them in the states(inputX,inputY,inputFacing)
     changeHandler = (e) => {
         const nextState = {};
         nextState[e.target.name] = e.target.value;
@@ -127,7 +143,6 @@ export default class ToyRobot extends Component{
     render(){
             const {x,y,facing, inputX, inputY, inputFacing} = this.state;
             const displayText = x === null ? "Robot is not placed on the table yet." : `Robot at ${x}, ${y}, ${DIRECTIONS[facing]}`;
-
         return(
             <div>
                 <p className="displayText">{displayText}</p>
