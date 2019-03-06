@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { DIRECTIONS } from '../util/Constants';
 
 export default class ToyRobot extends Component{
+    // setting an initial state
    state = {
        x: null,
        y: null,
@@ -115,7 +116,7 @@ export default class ToyRobot extends Component{
                 alert("Please provide valid coordinates.")
             }
     }
-    
+
     changeHandler = (e) => {
         const nextState = {};
         nextState[e.target.name] = e.target.value;
