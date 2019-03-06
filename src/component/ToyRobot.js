@@ -3,13 +3,28 @@ import { DIRECTIONS } from '../util/Constants';
 
 export default class ToyRobot extends Component{
    state = {
-       x: 0,
-       y: 0,
-       facing: 0,
+       x: null,
+       y: null,
+       facing: null,
+       inputX: 0,
+       inputY: 0,
+       inputFacing: 0,
    };
 
+   isPlaced = () => {
+       const {x } = this.state;
+       if(x === null ){
+           alert("Please place the robot on the table.");
+           return false;
+       }
+       return true;
+   }
+
    right = () => {
-        const { facing } = this.state;
+        const {facing } = this.state;
+        if(!this.isPlaced() ){
+            return false;
+        }
         this.setState({
             facing: (facing + 1) % 4,
         });
@@ -17,6 +32,9 @@ export default class ToyRobot extends Component{
 
     left = () => {
         const { facing } = this.state;
+        if(!this.isPlaced() ){
+            return false;
+        }
         if(facing === 0) {
             this.setState({
                 facing: 3,
@@ -29,25 +47,107 @@ export default class ToyRobot extends Component{
 
     };
 
+    validPosition = (x, y) => {
+        const pattern = new RegExp("^[0-4]$");
+        if(!pattern.test(x) || !pattern.test(y))
+        {
+            return false;
+        }
+            return true;
+    }
+
+    report = () => {
+        const { x, y, facing } = this.state;
+        if(!this.isPlaced() ){
+            return false;
+        }
+        alert(x + "," + y + "," + DIRECTIONS[facing])
+    }
+
+
+    move = () => {
+       const { x, y, facing } = this.state;
+        if(!this.isPlaced() ){
+            return false;
+        }
+       let newY = y;
+       let newX = x;
+       switch(facing) {
+           case 0:
+           {
+               newY = y+1;
+               break;
+           }
+           case 1:
+           {
+               newX = x + 1;
+               break;
+           }
+           case 2:
+           {
+               newY = y - 1;
+               break;
+           }
+           case 3:
+           {
+               newX = x - 1;
+               break;
+           }
+
+       }
+       if(this.validPosition(newX,newY)) {
+           this.setState({
+               x: newX,
+               y: newY,
+           })
+       }
+    }
+
+    place = () => {
+        const { inputX, inputY, inputFacing } = this.state;
+            if(this.validPosition(inputX, inputY)) {
+                this.setState({
+                    x: parseInt(inputX),
+                    y: parseInt(inputY),
+                    facing: parseInt(inputFacing),
+                })
+            } else {
+                alert("Please provide valid coordinates.")
+            }
+    }
+    
+    changeHandler = (e) => {
+        const nextState = {};
+        nextState[e.target.name] = e.target.value;
+        this.setState(nextState)
+
+    }
+
     render(){
-            const {x,y,facing} = this.state;
+            const {x,y,facing, inputX, inputY, inputFacing} = this.state;
+            const displayText = x === null ? "Robot is not placed on the table yet." : `Robot at ${x}, ${y}, ${DIRECTIONS[facing]}`;
 
         return(
             <div>
-                <p>Robot at {x} ,{y}, {DIRECTIONS[facing]} </p>
+                <p> {displayText}</p>
+
                     <table>
                         <tbody>
                         <tr>
                             <td>
-                                <label>
-                                    Place
-                                </label>
-                                <input type="text"/>
+                                <button onClick={this.place}>Place</button>
+                                <input type="number"  name="inputX" placeholder="X" value={inputX} onChange={this.changeHandler} />
+                                <input type="number" name="inputY" placeholder="Y" value={inputY} onChange={this.changeHandler}/>
+                                <select name="inputFacing"  onChange={this.changeHandler} value={inputFacing}>
+                                    {DIRECTIONS.map((d, i) => {
+                                        return <option key={i} value={i}>{d}</option>
+                                    })}
+                                </select>
                             </td>
                         </tr>
                         <tr>
                             <td>
-                                <button>Move</button>
+                                <button onClick={this.move}>Move</button>
                             </td>
                         </tr>
                         <tr>
@@ -62,11 +162,12 @@ export default class ToyRobot extends Component{
                         </tr>
                         <tr>
                             <td>
-                                <button>Report</button>
+                                <button onClick={this.report}>Report</button>
                             </td>
                         </tr>
                         </tbody>
                     </table>
+
             </div>
         )
     }
