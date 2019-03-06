@@ -1,0 +1,1 @@
+export const DIRECTIONS = ['NORTH', 'EAST', 'SOUTH', 'WEST'];
