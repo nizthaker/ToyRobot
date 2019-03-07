@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { DIRECTIONS } from '../util/Constants';
+import '../css/style.css';
 
 export default class ToyRobot extends Component{
     // setting an initial state
@@ -150,14 +151,15 @@ export default class ToyRobot extends Component{
                         <tbody>
                         <tr>
                             <td>
-                                <button className="placeButton" onClick={this.place}>Place</button>
-                                <input className="inputX" type="number"  name="inputX" placeholder="X" value={inputX} onChange={this.changeHandler} />
-                                <input className="inputY" type="number" name="inputY" placeholder="Y" value={inputY} onChange={this.changeHandler}/>
-                                <select className="inputFacing" name="inputFacing"  onChange={this.changeHandler} value={inputFacing}>
+
+                                <span>X:</span><input className="inputX" type="number"  name="inputX" placeholder="X" value={inputX} onChange={this.changeHandler} />
+                                <span>Y:</span><input className="inputY" type="number" name="inputY" placeholder="Y" value={inputY} onChange={this.changeHandler}/>
+                                <span>Facing:</span><select className="inputFacing" name="inputFacing"  onChange={this.changeHandler} value={inputFacing}>
                                     {DIRECTIONS.map((d, i) => {
                                         return <option key={i} value={i}>{d}</option>
                                     })}
                                 </select>
+                                <button className="placeButton" onClick={this.place}>Place</button>
                             </td>
                         </tr>
                         <tr>
