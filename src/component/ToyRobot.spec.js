@@ -9,7 +9,7 @@ describe('<ToyRobot/>', () => {
     });
 
     describe('place robot', () => {
-        it('it should place robot on table', () => {
+        it('should place robot on table', () => {
             wrapper.find('.placeButton').simulate('click');
             expect(wrapper.state().x).toEqual(0);
             expect(wrapper.state().y).toEqual(0);
@@ -38,7 +38,7 @@ describe('<ToyRobot/>', () => {
         
     });
     describe('turnings', () => {
-        it('it should turn left after placing robot on table', () => {
+        it('should turn left after placing robot on table', () => {
             wrapper.find('.placeButton').simulate('click');
             wrapper.find('.leftButton').simulate('click');
             expect(wrapper.state().facing).toEqual(3);
@@ -49,13 +49,13 @@ describe('<ToyRobot/>', () => {
             wrapper.find('.leftButton').simulate('click');
             expect(wrapper.state().facing).toEqual(0);
         });
-        it('it should not turn left if robot is not placed yet', () => {
+        it('should not turn left if robot is not placed yet', () => {
             wrapper.find('.leftButton').simulate('click');
             expect(wrapper.state().x).toEqual(null);
             expect(wrapper.state().y).toEqual(null);
             expect(wrapper.state().facing).toEqual(null);
         });
-        it('it should turn right after placing robot on table', () => {
+        it('should turn right after placing robot on table', () => {
             wrapper.find('.placeButton').simulate('click');
             wrapper.find('.rightButton').simulate('click');
             expect(wrapper.state().facing).toEqual(1);
@@ -66,7 +66,7 @@ describe('<ToyRobot/>', () => {
             wrapper.find('.rightButton').simulate('click');
             expect(wrapper.state().facing).toEqual(0);
         });
-        it('it should not turn right if robot is not placed yet', () => {
+        it('should not turn right if robot is not placed yet', () => {
             wrapper.find('.rightButton').simulate('click');
             expect(wrapper.state().x).toEqual(null);
             expect(wrapper.state().y).toEqual(null);
@@ -74,7 +74,7 @@ describe('<ToyRobot/>', () => {
         });
     });
     describe('moving', () => {
-        it('it should move west within the table', () => {
+        it('should move west within the table', () => {
             wrapper.find('.placeButton').simulate('click');
             wrapper.setState({
                 x: 1,
@@ -87,7 +87,7 @@ describe('<ToyRobot/>', () => {
             expect(wrapper.state().facing).toEqual(3);
 
         });
-        it('it should move north within the table', () => {
+        it('should move north within the table', () => {
             wrapper.find('.placeButton').simulate('click');
             wrapper.setState({
                 x: 1,
@@ -100,7 +100,7 @@ describe('<ToyRobot/>', () => {
             expect(wrapper.state().facing).toEqual(0);
 
         });
-        it('it should move south within the table', () => {
+        it('should move south within the table', () => {
             wrapper.find('.placeButton').simulate('click');
             wrapper.setState({
                 x: 1,
@@ -113,7 +113,7 @@ describe('<ToyRobot/>', () => {
             expect(wrapper.state().facing).toEqual(2);
 
         });
-        it('it should move east within the table', () => {
+        it('should move east within the table', () => {
             wrapper.find('.placeButton').simulate('click');
             wrapper.setState({
                 x: 1,
@@ -126,7 +126,7 @@ describe('<ToyRobot/>', () => {
             expect(wrapper.state().facing).toEqual(1);
 
         });
-        it('it should not move if robot is on edge of the table,', () => {
+        it('should not move if robot is on edge of the table,', () => {
             wrapper.find('.placeButton').simulate('click');
             wrapper.setState({
                 x: 4,

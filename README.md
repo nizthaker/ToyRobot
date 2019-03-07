@@ -1,4 +1,4 @@
-#Toy Robot Simulator
+# Toy Robot Simulator
 
 Description
 -----------
@@ -46,7 +46,7 @@ Constraints
 - Any move that would cause the robot to fall must be ignored.
 
 
-##GUI to control robot
+## GUI to control robot
 
 Download the Zip and extract it in directory.
 
